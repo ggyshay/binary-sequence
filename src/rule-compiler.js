@@ -16,6 +16,7 @@ const RULES = [
 // n menor ou igual a
 // N maior ou igual a
 // dx(e) diferença entre este e o x ser igual a e
+// e numero igual ao valor
 
 function split_rules(rule) {
   let res = [];
@@ -86,6 +87,7 @@ export function testSequence(seq) {
 }
 
 function validate_number(n, rules, numbers) {
+  // console.log("validate", n, rules, numbers);
   for (let r of rules) {
     let rule = r[0];
     let operand = numbers[r[1]];
@@ -103,6 +105,8 @@ function validate_number(n, rules, numbers) {
     } else if (rule === "N" && menor(n, operand)) {
       return false;
     } else if (rule === "d" && !diferenca(n, operand, delta)) {
+      return false;
+    } else if (rule === "e" && !vale(n, r[1] + 1)) {
       return false;
     }
   }
@@ -135,6 +139,10 @@ function menor_ou_igual(d1, d2) {
 
 function diferenca(d1, d2, delta) {
   return d1 - d2 === delta;
+}
+
+function vale(d1, v) {
+  return d1 === v;
 }
 
 export function objectsToPatternString(list) {
