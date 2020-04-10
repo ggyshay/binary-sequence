@@ -10,24 +10,42 @@ function getFakeData() {
 class API_c {
   constructor() {
     this.pausedTicks = 0;
+    this.symbol = "R_100";
     this.callback = undefined;
     this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
-    this.ws.onopen = (evt) => {
-      this.ws.send(JSON.stringify({ ticks: "R_100" }));
-    };
-    this.lastValue = 0;
-    this.isPlaying = true;
 
-    // this.ws.onmessage = msg => {
-    //   var data = JSON.parse(msg.data);
-    //   console.log("ticks update: %o", data);
-    // };
-
-    this.ws.onerror = console.log;
-  }
-  setOnData = (f) => {
     this.ws.onmessage = (msg) => {
-      const t = DEV_MODE ? getFakeData() : JSON.parse(msg.data).tick;
+      const data = JSON.parse(msg.data);
+      // debugger;
+      switch (data.msg_type) {
+        case "proposal":
+          this.handleProposalResponse(data);
+          break;
+        case "tick":
+          this.tickCB(data);
+          break;
+      }
+    };
+    this.lastValue = undefined;
+    this.isPlaying = true;
+    this.isAuthorized = false;
+    this.ws.onerror = console.error;
+  }
+  send = (req) => this.ws.send(JSON.stringify(req));
+  handleProposalResponse = (data) => {
+    const id = data.proposal.id;
+    this.finishBuy(id, data.proposal.ask_price);
+  };
+  setOnData = (f) => {
+    this.tickCB = (data) => {
+      if (data.proposal) this.handleProposalResponse(data);
+      if (!data.tick) return;
+      const t = DEV_MODE ? getFakeData() : data.tick;
+      if (this.lastValue == undefined) {
+        this.lastValue = t.quote;
+        return;
+      }
+
       if (this.isPlaying) {
         f({ ...t, delta: t.quote - this.lastValue });
         this.lastValue = t.quote;
@@ -38,6 +56,9 @@ class API_c {
         }
       }
     };
+  };
+  startTicks = () => {
+    this.send({ ticks: this.symbol });
   };
 
   unpause = () => {
@@ -50,6 +71,39 @@ class API_c {
       this.pausedTicks = 5;
       this.callback = cb;
     }
+  };
+
+  onAuthorize = (cb) => {
+    this.onAuthorizeCB = cb;
+  };
+
+  setUserToken = (token) => {
+    console.log(token);
+    const res = this.send({ authorize: token });
+    console.log(res);
+    this.onAuthorizeCB(res);
+    // this.isAuthorized = true;
+  };
+
+  buy = (amount, isUp) => {
+    console.log("proposal", amount, isUp ? "up" : "down");
+    this.send({
+      proposal: 1,
+      amount: amount,
+      basis: "stake",
+      contract_type: isUp ? "CALL" : "PUT",
+      currency: "USD",
+      duration: 5,
+      duration_unit: "t",
+      symbol: this.symbol,
+    });
+  };
+
+  finishBuy = (id, price) => {
+    this.send({
+      buy: id,
+      price,
+    });
   };
 }
 

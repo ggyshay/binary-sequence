@@ -1,0 +1,37 @@
+.tg-container {
+  width: 50px;
+  height: 25px;
+  background-color: grey;
+  border-radius: 1000px;
+  padding: 2px;
+  display: flex;
+}
+
+.tg-slider {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 1000px;
+}
+
+.tg-container.tg-on {
+  justify-content: flex-end;
+  background-color: rgb(0, 216, 0);
+}
+
+.tg-container.tg-on .tg-slider {
+  background-color: white;
+}
+
+.tg-label {
+  font-size: 10px;
+  color: grey;
+  margin-top: 5px;
+}
+
+.tg-group {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 5px;
+}
