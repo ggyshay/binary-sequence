@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { API } from "./api";
-import { MultipleInput } from "./components/MultipleInput";
-import { ToggleSwitch } from "./components/ToggleSwitch";
-import { RULE_TESTING_MODE } from "./env";
-import { objectsToPatternString, testSequence } from "./rule-compiler";
+import { API } from "../api";
+import { MultipleInput } from "../components/MultipleInput";
+import { ToggleSwitch } from "../components/ToggleSwitch";
+import { RULE_TESTING_MODE } from "../env";
+import { objectsToPatternString, testSequence } from "../rule-compiler";
+import useSound from "use-sound";
+import alertSound from "../statics/alert.wav";
 
 export const Dashboard = (props) => {
   const [queue, setQueue] = useState([]);
@@ -11,6 +13,9 @@ export const Dashboard = (props) => {
   const [automaticTradeEnabled, setAutomaticTradeEnabled] = useState(false);
   const [result, setResult] = useState(undefined);
   const [tradeAmount, setTradeAmount] = useState(10);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [play] = useSound(alertSound);
+
   const PAUSED_TIME = 10000;
   useEffect(() => {
     const handleNewPoint = (d) => {
@@ -24,11 +29,13 @@ export const Dashboard = (props) => {
         if (_q.length > 10) {
           _q.shift();
         }
+        // console.log(_q.map((i) => i.lastDigit));
         return [..._q];
       });
     };
     API.setOnData(handleNewPoint);
     API.startTicks();
+    API.onError(props.onError);
   }, []);
 
   const resumeAnalisys = () => {
@@ -56,6 +63,9 @@ export const Dashboard = (props) => {
     const { result: r, rule, colors } = testSequence(patternString);
     API.setShouldFreeze(r !== undefined, onUnpause(rule, colors, r));
     setResult(r);
+    if (r !== undefined && soundEnabled) {
+      play();
+    }
     if (r !== undefined && automaticTradeEnabled) {
       API.buy(tradeAmount, r);
     }
@@ -63,13 +73,20 @@ export const Dashboard = (props) => {
 
   return (
     <div className="App">
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex" }}>
+          <ToggleSwitch
+            label="Modo Automatico"
+            onClick={() => setAutomaticTradeEnabled(!automaticTradeEnabled)}
+            isOn={automaticTradeEnabled}
+          />
+          <MultipleInput onChange={setTradeAmount} value={tradeAmount} />
+        </div>
         <ToggleSwitch
-          label="Modo Automatico"
-          onClick={() => setAutomaticTradeEnabled(!automaticTradeEnabled)}
-          isOn={automaticTradeEnabled}
+          label="Avisos sonoros"
+          onClick={() => setSoundEnabled(!soundEnabled)}
+          isOn={soundEnabled}
         />
-        <MultipleInput onChange={setTradeAmount} value={tradeAmount} />
       </div>
       <div className="digit-container">
         {queue.map((point) => (

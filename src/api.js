@@ -13,11 +13,16 @@ class API_c {
     this.symbol = "R_100";
     this.callback = undefined;
     this.onOpenCB = undefined;
+    this.timeout = undefined;
+    this.errorCB = undefined;
     this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
 
     this.ws.onmessage = (msg) => {
       const data = JSON.parse(msg.data);
-      // debugger;
+      console.log(data);
+      if (data.error) {
+        return this.onErrorCB(data.error.message);
+      }
       switch (data.msg_type) {
         case "proposal":
           this.handleProposalResponse(data);
@@ -35,6 +40,20 @@ class API_c {
     this.isAuthorized = false;
     this.ws.onerror = console.error;
   }
+  onError = (cb) => (this.onErrorCB = cb);
+  reset = (newSymbol) => {
+    this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
+    if (newSymbol) {
+      this.symbol = newSymbol;
+    }
+    this.onOpenCB = this.startTicks;
+  };
+  resetTimer = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(this.reset, 20000);
+  };
   send = (req) => this.ws.send(JSON.stringify(req));
   handleProposalResponse = (data) => {
     const id = data.proposal.id;
@@ -43,6 +62,7 @@ class API_c {
   onOpen = (cb) => (this.onOpenCB = cb);
   setOnData = (f) => {
     this.tickCB = (data) => {
+      this.resetTimer();
       if (data.proposal) this.handleProposalResponse(data);
       if (!data.tick) return;
       const t = DEV_MODE ? getFakeData() : data.tick;
