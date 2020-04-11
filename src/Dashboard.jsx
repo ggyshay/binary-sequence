@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { API } from "./api";
+import { MultipleInput } from "./components/MultipleInput";
+import { ToggleSwitch } from "./components/ToggleSwitch";
 import { RULE_TESTING_MODE } from "./env";
 import { objectsToPatternString, testSequence } from "./rule-compiler";
-import { ToggleSwitch } from "./components/ToggleSwitch";
-import { MultipleInput } from "./components/MultipleInput";
 
 export const Dashboard = (props) => {
   const [queue, setQueue] = useState([]);

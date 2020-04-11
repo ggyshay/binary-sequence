@@ -12,6 +12,7 @@ class API_c {
     this.pausedTicks = 0;
     this.symbol = "R_100";
     this.callback = undefined;
+    this.onOpenCB = undefined;
     this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
 
     this.ws.onmessage = (msg) => {
@@ -26,6 +27,9 @@ class API_c {
           break;
       }
     };
+    this.ws.onopen = () => {
+      setTimeout(this.onOpenCB, 1000);
+    };
     this.lastValue = undefined;
     this.isPlaying = true;
     this.isAuthorized = false;
@@ -36,6 +40,7 @@ class API_c {
     const id = data.proposal.id;
     this.finishBuy(id, data.proposal.ask_price);
   };
+  onOpen = (cb) => (this.onOpenCB = cb);
   setOnData = (f) => {
     this.tickCB = (data) => {
       if (data.proposal) this.handleProposalResponse(data);
