@@ -105,8 +105,11 @@ class API_c {
   setUserToken = (token) => {
     console.log(token);
     const res = this.send({ authorize: token });
-    console.log(res);
-    this.onAuthorizeCB(res);
+    if (!res.error) {
+      this.onAuthorizeCB(res);
+    } else {
+      this.onErrorCB(res.error);
+    }
     // this.isAuthorized = true;
   };
 
