@@ -71,6 +71,11 @@ export const Dashboard = (props) => {
     }
   }, [queue]);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    props.logout();
+  };
+
   return (
     <div className="App">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -82,6 +87,7 @@ export const Dashboard = (props) => {
           />
           <MultipleInput onChange={setTradeAmount} value={tradeAmount} />
         </div>
+        <button onClick={handleLogout}>Logout</button>
         <ToggleSwitch
           label="Avisos sonoros"
           onClick={() => setSoundEnabled(!soundEnabled)}

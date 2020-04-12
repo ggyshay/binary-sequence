@@ -6,6 +6,7 @@ export const TokenInputPage = (props) => {
 
   const handleSubmit = () => {
     API.setUserToken(token);
+    localStorage.setItem("token", token);
   };
 
   return (

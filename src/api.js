@@ -130,6 +130,10 @@ class API_c {
       price,
     });
   };
+
+  cancelSubscription = () => {
+    this.send({ forget_all: "ticks" });
+  };
 }
 
 export const API = new API_c();
