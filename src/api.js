@@ -30,9 +30,12 @@ class API_c {
         case "tick":
           this.tickCB(data);
           break;
+        case "authorize":
+          this.onAuthorizeCB(data);
       }
     };
     this.ws.onopen = () => {
+      console.log("open");
       setTimeout(this.onOpenCB, 1000);
     };
     this.lastValue = undefined;
@@ -83,6 +86,7 @@ class API_c {
     };
   };
   startTicks = () => {
+    console.log("start ticks");
     this.send({ ticks: this.symbol });
   };
 
@@ -104,12 +108,7 @@ class API_c {
 
   setUserToken = (token) => {
     console.log(token);
-    const res = this.send({ authorize: token });
-    if (!res.error) {
-      this.onAuthorizeCB(res);
-    } else {
-      this.onErrorCB(res.error);
-    }
+    this.send({ authorize: token });
     // this.isAuthorized = true;
   };
 

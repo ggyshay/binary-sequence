@@ -34,8 +34,8 @@ export const Dashboard = (props) => {
       });
     };
     API.setOnData(handleNewPoint);
-    API.startTicks();
     API.onError(props.onError);
+    API.startTicks();
   }, []);
 
   const resumeAnalisys = () => {
