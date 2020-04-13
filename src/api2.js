@@ -16,27 +16,23 @@ class API_c {
     this.timeout = undefined;
     this.errorCB = undefined;
     this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
-    this.callbacks = {};
 
     this.ws.onmessage = (msg) => {
       const data = JSON.parse(msg.data);
-      console.log(data, this.callbacks[data.msg_type], this.callbacks);
-      // debugger;
+      console.log(data);
       if (data.error) {
-        return this.callbacks[data.msg_type].reject(data.error);
-        // return this.onErrorCB(data.error.message);
+        return this.onErrorCB(data.error.message);
       }
-      return this.callbacks[data.msg_type].resolve(data);
-      //   switch (data.msg_type) {
-      //     case "proposal":
-      //       this.handleProposalResponse(data);
-      //       break;
-      //     case "tick":
-      //       this.tickCB(data);
-      //       break;
-      //     case "authorize":
-      //       this.onAuthorizeCB(data);
-      //   }
+      switch (data.msg_type) {
+        case "proposal":
+          this.handleProposalResponse(data);
+          break;
+        case "tick":
+          this.tickCB(data);
+          break;
+        case "authorize":
+          this.onAuthorizeCB(data);
+      }
     };
     this.ws.onopen = () => {
       console.log("open");
@@ -47,24 +43,20 @@ class API_c {
     this.isAuthorized = false;
     this.ws.onerror = console.error;
   }
-
-  //   onError = (cb) => (this.onErrorCB = cb);
+  onError = (cb) => (this.onErrorCB = cb);
   reset = (newSymbol) => {
-    this.ws.close();
     this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
     if (newSymbol) {
       this.symbol = newSymbol;
     }
     this.onOpenCB = this.startTicks;
   };
-
   resetTimer = () => {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
     this.timeout = setTimeout(this.reset, 20000);
   };
-
   send = (req) => this.ws.send(JSON.stringify(req));
   handleProposalResponse = (data) => {
     const id = data.proposal.id;
@@ -93,20 +85,10 @@ class API_c {
       }
     };
   };
-  //api external methods
-  startTicks = () =>
-    new Promise((resolve, reject) => {
-      this.send({ ticks: this.symbol });
-      this.callbacks["tick"] = { resolve: this.tickCB, reject };
-    });
-
-  authorize = (token) =>
-    new Promise((resolve, reject) => {
-      // console.log(token);
-      this.send({ authorize: token });
-      this.callbacks["authorize"] = { resolve, reject };
-      // this.isAuthorized = true;
-    });
+  startTicks = () => {
+    console.log("start ticks");
+    this.send({ ticks: this.symbol });
+  };
 
   unpause = () => {
     this.isPlaying = true;
@@ -120,36 +102,40 @@ class API_c {
     }
   };
 
-  buy = async (amount, isUp) => {
-    const data = await new Promise((resolve, reject) => {
-      console.log("proposal", amount, isUp ? "up" : "down");
-      this.send({
-        proposal: 1,
-        amount: amount,
-        basis: "stake",
-        contract_type: isUp ? "CALL" : "PUT",
-        currency: "USD",
-        duration: 5,
-        duration_unit: "t",
-        symbol: this.symbol,
-      });
-      this.callbacks["proposal"] = { resolve, reject };
-    });
-    const id = data.proposal.id;
-    return new Promise((resolve, reject) => {
-      this.send({
-        buy: id,
-        price: data.proposal.ask_price,
-      });
-      this.callbacks["buy"] = { resolve, reject };
+  onAuthorize = (cb) => {
+    this.onAuthorizeCB = cb;
+  };
+
+  setUserToken = (token) => {
+    console.log(token);
+    this.send({ authorize: token });
+    // this.isAuthorized = true;
+  };
+
+  buy = (amount, isUp) => {
+    console.log("proposal", amount, isUp ? "up" : "down");
+    this.send({
+      proposal: 1,
+      amount: amount,
+      basis: "stake",
+      contract_type: isUp ? "CALL" : "PUT",
+      currency: "USD",
+      duration: 5,
+      duration_unit: "t",
+      symbol: this.symbol,
     });
   };
 
-  cancelSubscription = () =>
-    new Promise((resolve, reject) => {
-      this.send({ forget_all: "ticks" });
-      this.callbacks["forget_all"] = { resolve, reject };
+  finishBuy = (id, price) => {
+    this.send({
+      buy: id,
+      price,
     });
+  };
+
+  cancelSubscription = () => {
+    this.send({ forget_all: "ticks" });
+  };
 }
 
 export const API = new API_c();

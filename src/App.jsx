@@ -12,18 +12,24 @@ function App() {
   const [err, setErr] = useState();
   const [isLogedIn, setIsLogedIn] = useState(false);
   useEffect(() => {
-    API.onAuthorize(() => setIsAuthorized(true));
+    // API.onAuthorize(() => setIsAuthorized(true));
 
     const user = localStorage.getItem("user");
     if (user) {
       setIsLogedIn(user);
     }
 
-    API.onOpen(() => {
+    API.onOpen(async () => {
       setIsOpen(true);
       const token = localStorage.getItem("token");
       if (token) {
-        API.setUserToken(token);
+        try {
+          const res = await API.authorize(token);
+          console.log(res);
+          setIsAuthorized(true);
+        } catch (e) {
+          console.error(e);
+        }
       }
     });
   }, []);
@@ -45,7 +51,7 @@ function App() {
   return isAuthorized ? (
     <Dashboard onError={setErr} logout={handleLogout} />
   ) : (
-    <TokenInputPage />
+    <TokenInputPage onAuthorize={() => setIsAuthorized(true)} />
   );
 }
 

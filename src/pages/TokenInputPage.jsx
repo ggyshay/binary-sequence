@@ -4,9 +4,11 @@ import { API } from "../api";
 export const TokenInputPage = (props) => {
   const [token, setToken] = useState("");
 
-  const handleSubmit = () => {
-    API.setUserToken(token);
+  const handleSubmit = async () => {
+    const res = await API.authorize(token);
+    console.log(res);
     localStorage.setItem("token", token);
+    props.onAuthorize();
   };
 
   return (

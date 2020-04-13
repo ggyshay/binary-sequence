@@ -34,7 +34,7 @@ export const Dashboard = (props) => {
       });
     };
     API.setOnData(handleNewPoint);
-    API.onError(props.onError);
+    // API.onError(props.onError);
     API.startTicks();
   }, []);
 
