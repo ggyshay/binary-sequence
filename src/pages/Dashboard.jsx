@@ -2,18 +2,23 @@ import React, { useEffect, useState } from "react";
 import { API } from "../api";
 import { MultipleInput } from "../components/MultipleInput";
 import { ToggleSwitch } from "../components/ToggleSwitch";
-import { RULE_TESTING_MODE } from "../env";
+import { RULE_TESTING_MODE, DEV_MODE } from "../env";
 import { objectsToPatternString, testSequence } from "../rule-compiler";
 import useSound from "use-sound";
 import alertSound from "../statics/alert.wav";
+import { Input } from "../components/Input";
 
 export const Dashboard = (props) => {
   const [queue, setQueue] = useState([]);
   const [ruleFeedback, setRuleFeedback] = useState([]);
   const [automaticTradeEnabled, setAutomaticTradeEnabled] = useState(false);
   const [result, setResult] = useState(undefined);
+  const [inicialTradeAmount, setInicialTradeAmount] = useState(10);
   const [tradeAmount, setTradeAmount] = useState(10);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [nErrors, setNErrors] = useState(0);
+  const [maxNErrors, setMaxNErrors] = useState(5);
+  const [amountMultiplier, setAmountMultiplier] = useState(2);
   const [play] = useSound(alertSound);
 
   const PAUSED_TIME = 10000;
@@ -44,10 +49,23 @@ export const Dashboard = (props) => {
     setRuleFeedback("");
   };
 
+  const handlePredictionError = () => {
+    // errou
+    const nE = nErrors + 1;
+    if (nE > maxNErrors) {
+    } else {
+      setTradeAmount(tradeAmount * amountMultiplier);
+      setNErrors(nE);
+    }
+  };
+
   const onUnpause = (rule, colors, flag) => (value, decisionValue) => {
+    const rose = value > decisionValue;
+    if (flag !== rose) {
+      handlePredictionError();
+    }
     if (RULE_TESTING_MODE) {
       console.log("unpause", value, decisionValue);
-      const rose = value > decisionValue;
       let feedback = "A regra previu " + (flag ? "subida" : "descida");
       feedback += " e ele " + (rose ? "subiu" : "desceu");
       feedback += " [" + rule.toString() + "] " + colors;
@@ -85,7 +103,23 @@ export const Dashboard = (props) => {
             onClick={() => setAutomaticTradeEnabled(!automaticTradeEnabled)}
             isOn={automaticTradeEnabled}
           />
-          <MultipleInput onChange={setTradeAmount} value={tradeAmount} />
+          <Input
+            label="Maximo de erros"
+            onChange={setMaxNErrors}
+            value={maxNErrors}
+          />
+          <Input
+            label="Quantidade incial"
+            onChange={setInicialTradeAmount}
+            value={inicialTradeAmount}
+          />
+          <Input
+            label="Multiplicador"
+            onChange={setAmountMultiplier}
+            value={amountMultiplier}
+          />
+          <p>Quantidade atual</p>
+          <p>{tradeAmount}</p>
         </div>
         <button onClick={handleLogout}>Logout</button>
         <ToggleSwitch
@@ -99,7 +133,6 @@ export const Dashboard = (props) => {
           <p style={{ color: point.color, margin: 20 }}>{point.lastDigit}</p>
         ))}
       </div>
-      {/* <p>{patternString}</p> */}
       {result !== undefined && (
         <h3 style={{ color: result ? "red" : "blue" }}>
           {result ? "positivo" : "negativo"}
@@ -109,6 +142,7 @@ export const Dashboard = (props) => {
       {ruleFeedback.length > 0 && (
         <button onClick={resumeAnalisys}>Voltar para a analise</button>
       )}
+      {<button onClick={API.reset}>Reset</button>}
     </div>
   );
 };

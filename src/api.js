@@ -10,59 +10,62 @@ function getFakeData() {
 class API_c {
   constructor() {
     this.pausedTicks = 0;
-    this.symbol = "R_100";
+    this.symbol = "R_10";
     this.callback = undefined;
     this.onOpenCB = undefined;
     this.timeout = undefined;
     this.errorCB = undefined;
-    this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
-    this.callbacks = {};
-
-    this.ws.onmessage = (msg) => {
-      const data = JSON.parse(msg.data);
-      console.log(data, this.callbacks[data.msg_type], this.callbacks);
-      // debugger;
-      if (data.error) {
-        return this.callbacks[data.msg_type].reject(data.error);
-        // return this.onErrorCB(data.error.message);
-      }
-      return this.callbacks[data.msg_type].resolve(data);
-      //   switch (data.msg_type) {
-      //     case "proposal":
-      //       this.handleProposalResponse(data);
-      //       break;
-      //     case "tick":
-      //       this.tickCB(data);
-      //       break;
-      //     case "authorize":
-      //       this.onAuthorizeCB(data);
-      //   }
-    };
-    this.ws.onopen = () => {
-      console.log("open");
-      setTimeout(this.onOpenCB, 1000);
-    };
+    this.setupApiCallbacks();
     this.lastValue = undefined;
     this.isPlaying = true;
     this.isAuthorized = false;
     this.ws.onerror = console.error;
   }
 
-  //   onError = (cb) => (this.onErrorCB = cb);
-  reset = (newSymbol) => {
-    this.ws.close();
+  setupApiCallbacks = () => {
     this.ws = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=22269");
-    if (newSymbol) {
-      this.symbol = newSymbol;
+    this.callbacks = {};
+
+    this.ws.onmessage = (msg) => {
+      const data = JSON.parse(msg.data);
+      console.log(data, this.callbacks[data.msg_type], this.callbacks);
+      if (data.error) {
+        return this.callbacks[data.msg_type].reject(data.error);
+      }
+      if (!this.callbacks[data.msg_type]) {
+        debugger;
+      }
+      return this.callbacks[data.msg_type].resolve(data);
+    };
+    this.ws.onopen = () => {
+      console.log("open");
+      setTimeout(this.onOpenCB, 1000);
+    };
+  };
+
+  //   onError = (cb) => (this.onErrorCB = cb);
+  reset = async () => {
+    console.log("reseting");
+    if (
+      this.ws.readyState !== this.ws.CLOSED &&
+      this.ws.readyState !== this.ws.CLOSING
+    ) {
+      await this.cancelSubscription();
+      console.log("forgot all ticks");
+      this.ws.close();
+      console.log("closed");
     }
-    this.onOpenCB = this.startTicks;
+    setTimeout(() => {
+      this.onOpenCB = () => this.startTicks();
+      this.setupApiCallbacks();
+    }, 1000);
   };
 
   resetTimer = () => {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-    this.timeout = setTimeout(this.reset, 20000);
+    this.timeout = setTimeout(this.reset, 200000);
   };
 
   send = (req) => this.ws.send(JSON.stringify(req));
@@ -73,6 +76,7 @@ class API_c {
   onOpen = (cb) => (this.onOpenCB = cb);
   setOnData = (f) => {
     this.tickCB = (data) => {
+      console.log("tick");
       this.resetTimer();
       if (data.proposal) this.handleProposalResponse(data);
       if (!data.tick) return;
@@ -96,8 +100,10 @@ class API_c {
   //api external methods
   startTicks = () =>
     new Promise((resolve, reject) => {
+      console.log("send ticks");
       this.send({ ticks: this.symbol });
       this.callbacks["tick"] = { resolve: this.tickCB, reject };
+      console.log("callbacks after that", this.callbacks);
     });
 
   authorize = (token) =>
