@@ -53,6 +53,7 @@ export const Dashboard = (props) => {
     // errou
     const nE = nErrors + 1;
     if (nE > maxNErrors) {
+      setAutomaticTradeEnabled(false);
     } else {
       setTradeAmount(tradeAmount * amountMultiplier);
       setNErrors(nE);
@@ -63,6 +64,8 @@ export const Dashboard = (props) => {
     const rose = value > decisionValue;
     if (flag !== rose) {
       handlePredictionError();
+    } else {
+      setTradeAmount(inicialTradeAmount);
     }
     if (RULE_TESTING_MODE) {
       console.log("unpause", value, decisionValue);
