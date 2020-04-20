@@ -5,12 +5,14 @@ import { Dashboard } from "./pages/Dashboard";
 import { TokenInputPage } from "./pages/TokenInputPage";
 import { ErrorPage } from "./pages/Error";
 import { Login } from "./pages/Login";
+import { IndexScreen } from "./pages/IndexScreen";
 
 function App() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [err, setErr] = useState();
   const [isLogedIn, setIsLogedIn] = useState(false);
+  const [showIndexScreen, setShowIndexScreen] = useState(false);
   useEffect(() => {
     // API.onAuthorize(() => setIsAuthorized(true));
 
@@ -39,6 +41,15 @@ function App() {
     setIsAuthorized(false);
     API.cancelSubscription();
   };
+
+  const changeSymbol = (newSymbol) => {
+    API.symbol = newSymbol;
+    API.reset();
+    setShowIndexScreen(false);
+  };
+  if (showIndexScreen) {
+    return <IndexScreen onChange={changeSymbol} />;
+  }
   if (!isLogedIn) {
     return <Login onLogin={setIsLogedIn} />;
   }
@@ -49,7 +60,11 @@ function App() {
     return <h1>Carregando...</h1>;
   }
   return isAuthorized ? (
-    <Dashboard onError={setErr} logout={handleLogout} />
+    <Dashboard
+      onError={setErr}
+      logout={handleLogout}
+      showIndexScreen={() => setShowIndexScreen(true)}
+    />
   ) : (
     <TokenInputPage onAuthorize={() => setIsAuthorized(true)} />
   );

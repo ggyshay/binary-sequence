@@ -126,6 +126,7 @@ export const Dashboard = (props) => {
           <p>Quantidade atual</p>
           <p>{tradeAmount}</p>
         </div>
+        <button onClick={props.showIndexScreen}>Trocar Indice</button>
         <button onClick={handleLogout}>Logout</button>
         <ToggleSwitch
           label="Avisos sonoros"
