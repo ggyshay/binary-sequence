@@ -19,6 +19,7 @@ class API_c {
     this.lastValue = undefined;
     this.isPlaying = true;
     this.isAuthorized = false;
+    this.stack = [];
     this.ws.onerror = console.error;
   }
 
@@ -74,6 +75,12 @@ class API_c {
     this.finishBuy(id, data.proposal.ask_price);
   };
   onOpen = (cb) => (this.onOpenCB = cb);
+  pushToStack = (d) => {
+    if (this.stack.length > 10) {
+      this.stack.shift();
+    }
+    this.stack.push(d);
+  };
   setOnData = (f) => {
     this.tickCB = (data) => {
       console.log("tick");
@@ -81,6 +88,7 @@ class API_c {
       if (data.proposal) this.handleProposalResponse(data);
       if (!data.tick) return;
       const t = DEV_MODE ? getFakeData() : data.tick;
+      this.pushToStack(t);
       if (this.lastValue == undefined) {
         this.lastValue = t.quote;
         return;
@@ -92,7 +100,7 @@ class API_c {
       } else {
         this.pausedTicks--;
         if (this.pausedTicks === 0) {
-          this.callback && this.callback(t.quote, this.lastValue);
+          this.callback && this.callback(t.quote, this.lastValue, this.stack);
         }
       }
     };

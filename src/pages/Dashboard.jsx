@@ -60,7 +60,9 @@ export const Dashboard = (props) => {
     }
   };
 
-  const onUnpause = (rule, colors, flag) => (value, decisionValue) => {
+  const onUnpause = (rule, colors, flag) => (value, _decisionValue, stack) => {
+    console.log("stack", stack);
+    const decisionValue = stack[1];
     const rose = value > decisionValue;
     if (flag !== rose) {
       handlePredictionError();
