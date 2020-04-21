@@ -13,6 +13,7 @@ function App() {
   const [err, setErr] = useState();
   const [isLogedIn, setIsLogedIn] = useState(false);
   const [showIndexScreen, setShowIndexScreen] = useState(false);
+  const [resolution, setResolution] = useState(2);
   useEffect(() => {
     // API.onAuthorize(() => setIsAuthorized(true));
 
@@ -42,8 +43,9 @@ function App() {
     API.cancelSubscription();
   };
 
-  const changeSymbol = (newSymbol) => {
+  const changeSymbol = (newSymbol, resolution) => {
     API.symbol = newSymbol;
+    setResolution(resolution);
     API.reset();
     setShowIndexScreen(false);
   };
@@ -64,6 +66,7 @@ function App() {
       onError={setErr}
       logout={handleLogout}
       showIndexScreen={() => setShowIndexScreen(true)}
+      resolution={resolution}
     />
   ) : (
     <TokenInputPage onAuthorize={() => setIsAuthorized(true)} />

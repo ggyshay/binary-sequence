@@ -10,7 +10,8 @@ function getFakeData() {
 class API_c {
   constructor() {
     this.pausedTicks = 0;
-    this.symbol = "R_10";
+    this.resolution = 2;
+    this.symbol = "R_100";
     this.callback = undefined;
     this.onOpenCB = undefined;
     this.timeout = undefined;

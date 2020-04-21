@@ -28,7 +28,7 @@ export const Dashboard = (props) => {
         let _q = [...q];
         _q.push({
           value: d.quote,
-          lastDigit: Math.round(d.quote * 100) % 10,
+          lastDigit: Math.round(d.quote * Math.pow(10, props.resolution)) % 10,
           color: d.delta > 0 ? "blue" : "red",
         });
         if (_q.length > 10) {
