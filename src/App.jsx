@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { API } from "./api";
 import "./App.css";
 import { Dashboard } from "./pages/Dashboard";
-import { TokenInputPage } from "./pages/TokenInputPage";
 import { ErrorPage } from "./pages/Error";
 import { Login } from "./pages/Login";
 import { IndexScreen } from "./pages/IndexScreen";
@@ -15,8 +14,6 @@ function App() {
   const [showIndexScreen, setShowIndexScreen] = useState(false);
   const [resolution, setResolution] = useState(2);
   useEffect(() => {
-    // API.onAuthorize(() => setIsAuthorized(true));
-
     const user = localStorage.getItem("user");
     if (user) {
       setIsLogedIn(user);
@@ -52,8 +49,8 @@ function App() {
   if (showIndexScreen) {
     return <IndexScreen onChange={changeSymbol} />;
   }
-  if (!isLogedIn) {
-    return <Login onLogin={setIsLogedIn} />;
+  if (!isLogedIn || !isAuthorized) {
+    return <Login onLogin={setIsLogedIn} onAuthorize={setIsAuthorized} />;
   }
   if (err) {
     return <ErrorPage error={err} />;
@@ -61,15 +58,15 @@ function App() {
   if (!isOpen) {
     return <h1>Carregando...</h1>;
   }
-  return isAuthorized ? (
-    <Dashboard
-      onError={setErr}
-      logout={handleLogout}
-      showIndexScreen={() => setShowIndexScreen(true)}
-      resolution={resolution}
-    />
-  ) : (
-    <TokenInputPage onAuthorize={() => setIsAuthorized(true)} />
+  return (
+    isAuthorized && (
+      <Dashboard
+        onError={setErr}
+        logout={handleLogout}
+        showIndexScreen={() => setShowIndexScreen(true)}
+        resolution={resolution}
+      />
+    )
   );
 }
 
