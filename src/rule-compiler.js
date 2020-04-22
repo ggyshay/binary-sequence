@@ -1,9 +1,98 @@
 const RULES = [
-  { rule: ["p", "i", "iN2", "pm1", "im3"], colors: "rbbrr", flag: true },
-  { rule: ["p", "i", "in2", "pn1", "iM3"], colors: "rbbrr", flag: false },
-  { rule: ["i", "pM1", "pN2", "in1", "pm3"], colors: "rbbrr", flag: true },
-  { rule: ["p", "i", "i", "pm1", "iM1d1(1)"], colors: "rbbrr", flag: false },
-  { rule: ["p", "i", "iN2", "pm1", "im4d4(-1)"], colors: "rbbrr", flag: true },
+  // 3 Digitos RISE
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "bbb", flag:true },//R1
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "brb", flag:true },//R2
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "bbr", flag:true },//R3
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "brr", flag:true },//R4
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "bbb", flag:true },//R5
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "brb", flag:true },//R6
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "bbr", flag:true },//R7
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "brr", flag:true },//R8
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "bbb", flag:true },//R9
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "bbr", flag:true },//R10
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rbr", flag:true },//R11
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rbb", flag:true },//R12
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "bbb", flag:true },//R13
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "bbr", flag:true },//R14
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "rbr", flag:true },//R15
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "rbb", flag:true },//R16
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "bbb", flag:true },//R17
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "brb", flag:true },//R18
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "bbr", flag:true },//R19
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "brr", flag:true },//R120
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "bbb", flag:true },//R21
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "brb", flag:true },//R22
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "bbr", flag:true },//R23
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "brr", flag:true },//R24
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "bbb", flag:true },//R25
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "bbr", flag:true },//R26
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "rbr", flag:true },//R27
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "rbb", flag:true },//R28
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "bbb", flag:true },//R29
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "bbr", flag:true },//R30
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "rbr", flag:true },//R31
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "rbb", flag:true },//R32
+{rule: ["i", "pm1d1(-1)", "im2"], colors: "rrr", flag:true },//R33
+{rule: ["i", "pm1d1(-1)", "im2"], colors: "rbr", flag:true },//R34
+{rule: ["i", "pm1d1(-1)", "im2"], colors: "rrb", flag:true },//R35
+{rule: ["i", "pm1d1(-1)", "im2"], colors: "rrr", flag:true },//R36
+{rule: ["i", "pm1", "iM2d2(1)"], colors: "rrr", flag:true },//R37
+{rule: ["i", "pm1", "iM2d2(1)"], colors: "rbr", flag:true },//R38
+{rule: ["i", "pm1", "iM2d2(1)"], colors: "rrb", flag:true },//R39
+{rule: ["i", "pm1", "iM2d2(1)"], colors: "rbb", flag:true },//R40
+{rule: ["i", "pm1d1(-1)", "pm2"], colors: "rrr", flag:true },//R41
+{rule: ["i", "pm1d1(-1)", "pm2"], colors: "rbr", flag:true },//R42
+{rule: ["i", "pm1d1(-1)", "pm2"], colors: "brr", flag:true },//R43
+{rule: ["i", "pm1d1(-1)", "pm2"], colors: "rrb", flag:true },//R44
+
+
+//3 Digitos FALL
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrr", flag:false },//R1
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbr", flag:false },//R2
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrb", flag:false },//R3
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbb", flag:false },//R4
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrr", flag:false },//R5
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbr", flag:false },//R6
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrb", flag:false },//R7
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbb", flag:false },//R8
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rrr", flag:false },//R9
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "brb", flag:false },//R10
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rrb", flag:false },//R11
+{rule: ["i", "pm1d1(-1)", "pM2"], colors: "brr", flag:false },//R12
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "rrr", flag:false },//R13
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "brb", flag:false },//R14
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "rrb", flag:false },//R15
+{rule: ["i", "pM1d1(1)", "pM2"], colors: "brr", flag:false },//R16
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "rrr", flag:false },//R17
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "rbr", flag:false },//R18
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "rrb", flag:false },//R19
+{rule: ["p", "im1d1(-1)", "pM1"], colors: "rbb", flag:false },//R120
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "rrr", flag:false },//R21
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "rbr", flag:false },//R22
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "rbb", flag:false },//R23
+{rule: ["p", "iM1d1(1)", "pM2"], colors: "rbb", flag:false },//R24
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "rrr", flag:false },//R25
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "brb", flag:false },//R26
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "rrb", flag:false },//R27
+{rule: ["p", "im1d1(-1)", "iM2"], colors: "brr", flag:false },//R28
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "rrr", flag:false },//R29
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "brb", flag:false },//R30
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "rrb", flag:false },//R31
+{rule: ["p", "iM1d1(1)", "iM2"], colors: "brr", flag:false },//R32
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrr", flag:false },//R33
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbr", flag:false },//R34
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrb", flag:false },//R35
+{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbb", flag:false },//R36
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrr", flag:false },//R37
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbr", flag:false },//R38
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrb", flag:false },//R39
+{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbb", flag:false },//R40
+{rule: ["p", "iM1d1(1)", "pM1"], colors: "bbb", flag:false },//R41
+{rule: ["p", "iM1d1(1)", "pM1"], colors: "brb", flag:false },//R42
+{rule: ["p", "iM1d1(1)", "pM1"], colors: "bbr", flag:false },//R43
+{rule: ["p", "iM1d1(1)", "pM1"], colors: "bbb", flag:false },//R44
+
+
 ];
 
 //4r3b3b2r1r
