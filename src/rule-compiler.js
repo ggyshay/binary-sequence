@@ -1,96 +1,145 @@
 const RULES = [
-  // 3 Digitos RISE
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "bbb", flag:true },//R1
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "brb", flag:true },//R2
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "bbr", flag:true },//R3
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "brr", flag:true },//R4
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "bbb", flag:true },//R5
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "brb", flag:true },//R6
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "bbr", flag:true },//R7
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "brr", flag:true },//R8
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "bbb", flag:true },//R9
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "bbr", flag:true },//R10
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rbr", flag:true },//R11
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rbb", flag:true },//R12
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "bbb", flag:true },//R13
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "bbr", flag:true },//R14
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "rbr", flag:true },//R15
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "rbb", flag:true },//R16
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "bbb", flag:true },//R17
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "brb", flag:true },//R18
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "bbr", flag:true },//R19
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "brr", flag:true },//R120
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "bbb", flag:true },//R21
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "brb", flag:true },//R22
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "bbr", flag:true },//R23
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "brr", flag:true },//R24
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "bbb", flag:true },//R25
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "bbr", flag:true },//R26
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "rbr", flag:true },//R27
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "rbb", flag:true },//R28
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "bbb", flag:true },//R29
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "bbr", flag:true },//R30
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "rbr", flag:true },//R31
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "rbb", flag:true },//R32
-{rule: ["i", "pm1d1(-1)", "im2"], colors: "rrr", flag:true },//R33
-{rule: ["i", "pm1d1(-1)", "im2"], colors: "rbr", flag:true },//R34
-{rule: ["i", "pm1d1(-1)", "im2"], colors: "rrb", flag:true },//R35
-{rule: ["i", "pm1d1(-1)", "im2"], colors: "rrr", flag:true },//R36
-{rule: ["i", "pm1", "iM2d2(1)"], colors: "rrr", flag:true },//R37
-{rule: ["i", "pm1", "iM2d2(1)"], colors: "rbr", flag:true },//R38
-{rule: ["i", "pm1", "iM2d2(1)"], colors: "rrb", flag:true },//R39
-{rule: ["i", "pm1", "iM2d2(1)"], colors: "rbb", flag:true },//R40
-{rule: ["i", "pm1d1(-1)", "pm2"], colors: "rrr", flag:true },//R41
-{rule: ["i", "pm1d1(-1)", "pm2"], colors: "rbr", flag:true },//R42
-{rule: ["i", "pm1d1(-1)", "pm2"], colors: "brr", flag:true },//R43
-{rule: ["i", "pm1d1(-1)", "pm2"], colors: "rrb", flag:true },//R44
-
-
-//3 Digitos FALL
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrr", flag:false },//R1
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbr", flag:false },//R2
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrb", flag:false },//R3
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbb", flag:false },//R4
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrr", flag:false },//R5
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbr", flag:false },//R6
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrb", flag:false },//R7
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbb", flag:false },//R8
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rrr", flag:false },//R9
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "brb", flag:false },//R10
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "rrb", flag:false },//R11
-{rule: ["i", "pm1d1(-1)", "pM2"], colors: "brr", flag:false },//R12
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "rrr", flag:false },//R13
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "brb", flag:false },//R14
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "rrb", flag:false },//R15
-{rule: ["i", "pM1d1(1)", "pM2"], colors: "brr", flag:false },//R16
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "rrr", flag:false },//R17
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "rbr", flag:false },//R18
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "rrb", flag:false },//R19
-{rule: ["p", "im1d1(-1)", "pM1"], colors: "rbb", flag:false },//R120
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "rrr", flag:false },//R21
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "rbr", flag:false },//R22
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "rbb", flag:false },//R23
-{rule: ["p", "iM1d1(1)", "pM2"], colors: "rbb", flag:false },//R24
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "rrr", flag:false },//R25
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "brb", flag:false },//R26
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "rrb", flag:false },//R27
-{rule: ["p", "im1d1(-1)", "iM2"], colors: "brr", flag:false },//R28
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "rrr", flag:false },//R29
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "brb", flag:false },//R30
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "rrb", flag:false },//R31
-{rule: ["p", "iM1d1(1)", "iM2"], colors: "brr", flag:false },//R32
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrr", flag:false },//R33
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbr", flag:false },//R34
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rrb", flag:false },//R35
-{rule: ["i", "pM1", "iM2d2(1)"], colors: "rbb", flag:false },//R36
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrr", flag:false },//R37
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbr", flag:false },//R38
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rrb", flag:false },//R39
-{rule: ["i", "pm1d1(-1)", "iM1"], colors: "rbb", flag:false },//R40
-{rule: ["p", "iM1d1(1)", "pM1"], colors: "bbb", flag:false },//R41
-{rule: ["p", "iM1d1(1)", "pM1"], colors: "brb", flag:false },//R42
-{rule: ["p", "iM1d1(1)", "pM1"], colors: "bbr", flag:false },//R43
-{rule: ["p", "iM1d1(1)", "pM1"], colors: "bbb", flag:false },//R44
+  	//RISE
+	{ rule: ["e6","e5","e2"], colors: "rbb", flag: true },
+	{ rule: ["e5","e6","e2"], colors: "rrb", flag: true },
+	{ rule: ["e7","e4","e8"], colors: "rbb", flag: true },
+	{ rule: ["e6","e5","e2"], colors: "rbb", flag: true },
+	{ rule: ["e1","e8","e6"], colors: "bbb", flag: true },
+	{ rule: ["e8","e7","e0"], colors: "bbr", flag: true },
+	{ rule: ["e4","e3","e4"], colors: "rbb", flag: true },
+	{ rule: ["e3","e0","e8"], colors: "rbr", flag: true },
+	{ rule: ["e4","e9","e5"], colors: "rrb", flag: true },
+	{ rule: ["e9","e8","e7"], colors: "rrr", flag: true },
+	{ rule: ["e8","e9","e2"], colors: "rbr", flag: true },
+	{ rule: ["e1","e6","e4"], colors: "rbr", flag: true },
+	{ rule: ["e0","e9","e1"], colors: "rrr", flag: true },
+	{ rule: ["e0","e7","e9"], colors: "bbb", flag: true },
+	{ rule: ["e8","e6","e9"], colors: "rbb", flag: true },
+	{ rule: ["e1","e0","e2"], colors: "rbb", flag: true },
+	{ rule: ["e7","e2","e3"], colors: "bbr", flag: true },
+	{ rule: ["e9","e4","e1"], colors: "rbb", flag: true },
+	{ rule: ["e0","e9","e5"], colors: "brr", flag: true },
+	{ rule: ["e0","e9","e1"], colors: "rrb", flag: true },
+	{ rule: ["e5","e0","e2"], colors: "bbb", flag: true },
+	{ rule: ["e2","e1","e5"], colors: "rbb", flag: true },
+	{ rule: ["e4","e3","e2"], colors: "brb", flag: true },
+	{ rule: ["e5","e0","e8"], colors: "bbb", flag: true },
+	{ rule: ["e4","e5","e3"], colors: "rbb", flag: true },
+	{ rule: ["e4","e1","e7"], colors: "bbr", flag: true },
+	{ rule: ["e7","e4","e1"], colors: "rrb", flag: true },
+	{ rule: ["e4","e5","e3"], colors: "rbb", flag: true },
+	{ rule: ["e7","e8","e5"], colors: "bbb", flag: true },
+	{ rule: ["e3","e4","e0"], colors: "bbr", flag: true },
+	{ rule: ["e8","e7","e4"], colors: "rrb", flag: true },
+	{ rule: ["e8","e9","e5"], colors: "bbb", flag: true },
+	{ rule: ["e6","e1","e8"], colors: "rbb", flag: true },
+	{ rule: ["e1","e8","e4"], colors: "bbr", flag: true },
+	{ rule: ["e3","e4","e0"], colors: "bbb", flag: true },
+	{ rule: ["e0","e3","e8"], colors: "bbb", flag: true },
+	{ rule: ["e6","e5","e7"], colors: "rrr", flag: true },
+	{ rule: ["e6","e1","e5"], colors: "bbb", flag: true },
+	{ rule: ["e5","e2","e4"], colors: "brr", flag: true },
+	{ rule: ["e0","e5","e5"], colors: "bbr", flag: true },
+	{ rule: ["e0","e1","e9"], colors: "bbb", flag: true },
+	{ rule: ["e8","e3","e7"], colors: "bbb", flag: true },
+	{ rule: ["e1","e0","e8"], colors: "brb", flag: true },
+	{ rule: ["e5","e4","e6"], colors: "rrb", flag: true },
+	{ rule: ["e6","e5","e7"], colors: "brr", flag: true },
+	{ rule: ["e2","e5","e1"], colors: "bbr", flag: true },
+	{ rule: ["e6","e9","e5"], colors: "rbr", flag: true },
+	{ rule: ["e7","e8","e0"], colors: "bbr", flag: true },
+	{ rule: ["e6","e5","e0"], colors: "brr", flag: true },
+	{ rule: ["e0","e1","e0"], colors: "bbr", flag: true },
+	{ rule: ["e4","e1","e5"], colors: "bbb", flag: true },
+	{ rule: ["e0","e3","e5"], colors: "rbb", flag: true },
+	{ rule: ["e3","e0","e2"], colors: "bbb", flag: true },
+	{ rule: ["e2","e1","e2"], colors: "brr", flag: true },
+	{ rule: ["e6","e1","e0"], colors: "brb", flag: true },
+	{ rule: ["e1","e6","e1"], colors: "bbr", flag: true },
+	{ rule: ["e3","e2","e7"], colors: "brb", flag: true },
+	{ rule: ["e5","e6","e4"], colors: "rbr", flag: true },
+	{ rule: ["e0","e9","e5"], colors: "brr", flag: true },
+	{ rule: ["e7","e0","e9"], colors: "bbr", flag: true },
+	{ rule: ["e0","e9","e4"], colors: "brr", flag: true },
+	{ rule: ["e4","e5","e3"], colors: "rrb", flag: true },
+	{ rule: ["e6","e7","e1"], colors: "rbr", flag: true },
+	{ rule: ["e0","e7","e8"], colors: "bbb", flag: true },
+	{ rule: ["e9","e0","e8"], colors: "rbr", flag: true },
+	{ rule: ["e9","e4","e5"], colors: "brb", flag: true },
+	{ rule: ["e8","e3","e9"], colors: "rbb", flag: true },
+	{ rule: ["e3","e4","e1"], colors: "brb", flag: true },
+	{ rule: ["e4","e1","e1"], colors: "rbb", flag: true },
+	{ rule: ["e8","e5","e4"], colors: "rrr", flag: true },
+	{ rule: ["e3","e2","e9"], colors: "bbb", flag: true },
+	{ rule: ["e5","e4","e5"], colors: "rrb", flag: true },
+	{ rule: ["e5","e2","e3"], colors: "bbb", flag: true },
+	
+	//FALL
+	{ rule: ["e5","e8","e1"], colors: "brb", flag: false },
+	{ rule: ["e8","e5","e3"], colors: "rrr", flag: false },
+	{ rule: ["e2","e5","e1"], colors: "brb", flag: false },
+	{ rule: ["e3","e8","e1"], colors: "bbb", flag: false },
+	{ rule: ["e1","e8","e6"], colors: "rrb", flag: false },
+	{ rule: ["e3","e0","e4"], colors: "rrr", flag: false },
+	{ rule: ["e4","e9","e7"], colors: "brb", flag: false },
+	{ rule: ["e1","e0","e7"], colors: "bbb", flag: false },
+	{ rule: ["e0","e1","e9"], colors: "brr", flag: false },
+	{ rule: ["e9","e6","e1"], colors: "rbb", flag: false },
+	{ rule: ["e9","e8","e2"], colors: "brb", flag: false },
+	{ rule: ["e4","e1","e8"], colors: "rrb", flag: false },
+	{ rule: ["e5","e4","e3"], colors: "brr", flag: false },
+	{ rule: ["e4","e7","e1"], colors: "rrr", flag: false },
+	{ rule: ["e7","e2","e1"], colors: "bbb", flag: false },
+	{ rule: ["e2","e1","e0"], colors: "bbb", flag: false },
+        { rule: ["e7","e4","e2"], colors: "brb", flag: false },
+	{ rule: ["e1","e4","e0"], colors: "rrr", flag: false },
+	{ rule: ["e5","e4","e8"], colors: "brb", flag: false },
+	{ rule: ["e3","e4","e8"], colors: "bbb", flag: false },
+	{ rule: ["e7","e4","e0"], colors: "brr", flag: false },
+	{ rule: ["e3","e0","e8"], colors: "brr", flag: false },
+	{ rule: ["e6","e7","e5"], colors: "bbb", flag: false },
+	{ rule: ["e9","e2","e2"], colors: "rbr", flag: false },
+	{ rule: ["e6","e5","e9"], colors: "rrr", flag: false },
+	{ rule: ["e9","e0","e8"], colors: "brb", flag: false },
+	{ rule: ["e7","e4","e4"], colors: "bbb", flag: false },
+	{ rule: ["e3","e4","e4"], colors: "bbb", flag: false },
+	{ rule: ["e3","e2","e1"], colors: "rrb", flag: false },
+	{ rule: ["e9","e4","e4"], colors: "rbb", flag: false },
+	{ rule: ["e9","e6","e4"], colors: "rbb", flag: false },
+	{ rule: ["e8","e7","e5"], colors: "bbb", flag: false },
+	{ rule: ["e7","e6","e1"], colors: "brr", flag: false },
+	{ rule: ["e5","e0","e4"], colors: "brr", flag: false },
+	{ rule: ["e7","e2","e9"], colors: "brr", flag: false },
+	{ rule: ["e3","e2","e5"], colors: "rbr", flag: false },
+	{ rule: ["e8","e5","e0"], colors: "rbb", flag: false },
+	{ rule: ["e1","e6","e4"], colors: "rbb", flag: false },
+	{ rule: ["e6","e7","e3"], colors: "bbr", flag: false },
+	{ rule: ["e3","e6","e7"], colors: "rbb", flag: false },
+	{ rule: ["e7","e4","e9"], colors: "rbr", flag: false },
+	{ rule: ["e1","e8","e9"], colors: "brb", flag: false },
+	{ rule: ["e3","e8","e5"], colors: "rrr", flag: false },
+	{ rule: ["e9","e2","e6"], colors: "brr", flag: false },
+	{ rule: ["e7","e0","e9"], colors: "rrb", flag: false },
+	{ rule: ["e2","e7","e1"], colors: "brr", flag: false },
+	{ rule: ["e6","e9","e0"], colors: "bbb", flag: false },
+	{ rule: ["e2","e9","e3"], colors: "brb", flag: false },
+	{ rule: ["e1","e4","e3"], colors: "rrb", flag: false },
+	{ rule: ["e2","e5","e1"], colors: "rbr", flag: false },
+	{ rule: ["e8","e1","e7"], colors: "brr", flag: false },
+	{ rule: ["e9","e8","e4"], colors: "bbr", flag: false },
+	{ rule: ["e3","e4","e6"], colors: "brb", flag: false },
+	{ rule: ["e9","e6","e2"], colors: "rrb", flag: false },
+	{ rule: ["e0","e3","e4"], colors: "rrb", flag: false },
+	{ rule: ["e4","e3","e8"], colors: "rbb", flag: false },
+	{ rule: ["e6","e1","e4"], colors: "rrr", flag: false },
+	{ rule: ["e9","e8","e1"], colors: "rrb", flag: false },
+	{ rule: ["e9","e8","e4"], colors: "brr", flag: false },
+	{ rule: ["e2","e3","e4"], colors: "rbb", flag: false },
+	
+	
+	
+	
+	
 
 
 ];
