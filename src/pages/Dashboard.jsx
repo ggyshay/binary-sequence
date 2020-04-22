@@ -123,7 +123,7 @@ export const Dashboard = (props) => {
             onChange={setAmountMultiplier}
             value={amountMultiplier}
           />
-          <p>Valor atual</p>
+          <p>Valor atual ="</p>
           <p>{tradeAmount}</p>
         </div>
         <button onClick={props.showIndexScreen}>Trocar Indice</button>
