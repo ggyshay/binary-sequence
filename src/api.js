@@ -30,7 +30,7 @@ class API_c {
 
     this.ws.onmessage = (msg) => {
       const data = JSON.parse(msg.data);
-      console.log(data, this.callbacks[data.msg_type], this.callbacks);
+      // console.log(data, this.callbacks[data.msg_type], this.callbacks);
       if (data.error) {
         return this.callbacks[data.msg_type].reject(data.error);
       }
