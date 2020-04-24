@@ -22,6 +22,7 @@ class API_c {
     this.isAuthorized = false;
     this.stack = [];
     this.ws.onerror = console.error;
+    this.userToken = undefined;
   }
 
   setupApiCallbacks = () => {
@@ -58,7 +59,10 @@ class API_c {
       console.log("closed");
     }
     setTimeout(() => {
-      this.onOpenCB = () => this.startTicks();
+      this.onOpenCB = async () => {
+        await this.authorize();
+        this.startTicks();
+      };
       this.setupApiCallbacks();
     }, 1000);
   };
@@ -117,8 +121,12 @@ class API_c {
 
   authorize = (token) =>
     new Promise((resolve, reject) => {
-      // console.log(token);
-      this.send({ authorize: token });
+      if (!token) {
+        this.send({ authorize: this.userToken });
+      } else {
+        this.send({ authorize: token });
+        this.userToken = token;
+      }
       this.callbacks["authorize"] = { resolve, reject };
       // this.isAuthorized = true;
     });
