@@ -22,7 +22,13 @@ export const Dashboard = (props) => {
   const [play] = useSound(alertSound);
 
   const PAUSED_TIME = 10000;
+  const setAutomaticTradeEnabledPersistent = (value) => {
+    window.localStorage.setItem("automaticTradeEnabled", value);
+    setAutomaticTradeEnabled(value);
+  };
   useEffect(() => {
+    const ATE = window.localStorage.getItem("automaticTradeEnabled");
+    setAutomaticTradeEnabled(ATE);
     const handleNewPoint = (d) => {
       setQueue((q) => {
         let _q = [...q];
@@ -53,7 +59,7 @@ export const Dashboard = (props) => {
     // errou
     const nE = nErrors + 1;
     if (nE > maxNErrors) {
-      setAutomaticTradeEnabled(false);
+      setAutomaticTradeEnabledPersistent(false);
       setNErrors(0);
     } else {
       setTradeAmount(tradeAmount * amountMultiplier);
@@ -118,7 +124,9 @@ export const Dashboard = (props) => {
         <div style={{ display: "flex" }}>
           <ToggleSwitch
             label="Modo Automatico"
-            onClick={() => setAutomaticTradeEnabled(!automaticTradeEnabled)}
+            onClick={() =>
+              setAutomaticTradeEnabledPersistent(!automaticTradeEnabled)
+            }
             isOn={automaticTradeEnabled}
           />
           <Input
