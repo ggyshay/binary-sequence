@@ -68,7 +68,10 @@ export const Dashboard = (props) => {
   };
 
   const onUnpause = (rule, colors, flag) => (value, _decisionValue, stack) => {
-    console.log("stack", stack);
+    console.log(
+      "stack",
+      stack.map((i) => i.quote)
+    );
     const decisionValue = stack[2].quote;
     const rose = value > decisionValue;
     console.log(
