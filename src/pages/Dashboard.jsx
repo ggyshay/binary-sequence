@@ -36,6 +36,7 @@ export const Dashboard = (props) => {
           value: d.quote,
           lastDigit: Math.round(d.quote * Math.pow(10, props.resolution)) % 10,
           color: d.delta > 0 ? "blue" : "red",
+          id: d.epoch,
         });
         if (_q.length > 10) {
           _q.shift();
@@ -164,7 +165,7 @@ export const Dashboard = (props) => {
         {queue.map((point) => (
           <p
             style={{ fontSize: 45, color: point.color, margin: 20 }}
-            key={point.value}
+            key={point.id}
           >
             {point.lastDigit}
           </p>
