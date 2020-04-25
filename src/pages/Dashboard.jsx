@@ -120,7 +120,6 @@ export const Dashboard = (props) => {
     localStorage.clear();
     props.logout();
   };
-
   return (
     <div className="App">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -163,7 +162,10 @@ export const Dashboard = (props) => {
       </div>
       <div className="digit-container">
         {queue.map((point) => (
-          <p style={{ fontSize: 45, color: point.color, margin: 20 }}>
+          <p
+            style={{ fontSize: 45, color: point.color, margin: 20 }}
+            key={point.value}
+          >
             {point.lastDigit}
           </p>
         ))}
