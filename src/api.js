@@ -138,7 +138,7 @@ class API_c {
   setShouldFreeze = (b, cb) => {
     if (b && this.isPlaying) {
       this.isPlaying = false;
-      this.pausedTicks = 5;
+      this.pausedTicks = 6;
       this.callback = cb;
     }
   };

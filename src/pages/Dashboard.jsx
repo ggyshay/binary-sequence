@@ -54,6 +54,7 @@ export const Dashboard = (props) => {
     const nE = nErrors + 1;
     if (nE > maxNErrors) {
       setAutomaticTradeEnabled(false);
+      setNErrors(0);
     } else {
       setTradeAmount(tradeAmount * amountMultiplier);
       setNErrors(nE);
@@ -62,7 +63,7 @@ export const Dashboard = (props) => {
 
   const onUnpause = (rule, colors, flag) => (value, _decisionValue, stack) => {
     console.log("stack", stack);
-    const decisionValue = stack[1].quote;
+    const decisionValue = stack[2].quote;
     const rose = value > decisionValue;
     console.log(
       "comparando atual",
@@ -77,6 +78,7 @@ export const Dashboard = (props) => {
     if (flag !== rose) {
       handlePredictionError();
     } else {
+      setNErrors(0);
       setTradeAmount(inicialTradeAmount);
     }
     if (RULE_TESTING_MODE) {
