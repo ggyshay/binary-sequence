@@ -73,7 +73,7 @@ export const Dashboard = (props) => {
       "stack",
       stack.map((i) => i.quote)
     );
-    const decisionValue = stack[2].quote;
+    const decisionValue = stack[stack.length - 6].quote;
     const rose = value > decisionValue;
     console.log(
       "comparando atual",
