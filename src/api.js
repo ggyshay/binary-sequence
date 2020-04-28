@@ -36,7 +36,6 @@ class API_c {
         return this.callbacks[data.msg_type].reject(data.error);
       }
       if (!this.callbacks[data.msg_type]) {
-        debugger;
       }
       return this.callbacks[data.msg_type].resolve(data);
     };

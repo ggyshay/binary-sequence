@@ -40,7 +40,6 @@ export const auth = (function () {
     });
     const user = userDoc.data();
 
-    debugger;
     if (!user.binary_token) {
       await userDoc.ref.set({
         email,

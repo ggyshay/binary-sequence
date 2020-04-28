@@ -3,42 +3,37 @@ import { API } from "./api";
 import "./App.css";
 import { Dashboard } from "./pages/Dashboard";
 import { ErrorPage } from "./pages/Error";
-import { Login } from "./pages/Login";
 import { IndexScreen } from "./pages/IndexScreen";
+import { Login } from "./pages/Login";
 
-function App() {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+function App(props) {
+  // const [isAuthorized, setIsAuthorized] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const [err, setErr] = useState();
-  const [isLogedIn, setIsLogedIn] = useState(false);
+  // const [isLogedIn, setIsLogedIn] = useState(false);
   const [showIndexScreen, setShowIndexScreen] = useState(false);
   const [resolution, setResolution] = useState(2);
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setIsLogedIn(user);
-    }
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user) {
+  //     setIsLogedIn(user);
+  //   }
 
-    API.onOpen(async () => {
-      setIsOpen(true);
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const res = await API.authorize(token);
-          console.log(res);
-          setIsAuthorized(true);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    });
-  }, []);
-
-  const handleLogout = () => {
-    setIsLogedIn(false);
-    setIsAuthorized(false);
-    API.cancelSubscription();
-  };
+  //   API.onOpen(async () => {
+  //     setIsOpen(true);
+  //     debugger;
+  //     const token = localStorage.getItem("token");
+  //     if (token) {
+  //       try {
+  //         const res = await API.authorize(token);
+  //         console.log(res);
+  //         setIsAuthorized(true);
+  //       } catch (e) {
+  //         console.error(e);
+  //       }
+  //     }
+  //   });
+  // }, []);
 
   const changeSymbol = (newSymbol, resolution) => {
     API.symbol = newSymbol;
@@ -46,23 +41,26 @@ function App() {
     API.reset();
     setShowIndexScreen(false);
   };
+
   if (showIndexScreen) {
     return <IndexScreen onChange={changeSymbol} />;
   }
-  if (!isLogedIn || !isAuthorized) {
-    return <Login onLogin={setIsLogedIn} onAuthorize={setIsAuthorized} />;
+  if (!props.isLogedIn || !props.isAuthorized) {
+    return (
+      <Login onLogin={props.setIsLogedIn} onAuthorize={props.setIsAuthorized} />
+    );
   }
   if (err) {
     return <ErrorPage error={err} />;
   }
-  if (!isOpen) {
+  if (!props.isOpen) {
     return <h1>Carregando...</h1>;
   }
   return (
-    isAuthorized && (
+    props.isAuthorized && (
       <Dashboard
         onError={setErr}
-        logout={handleLogout}
+        logout={props.logout}
         showIndexScreen={() => setShowIndexScreen(true)}
         resolution={resolution}
       />
