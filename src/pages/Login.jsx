@@ -21,15 +21,15 @@ export const Login = (props) => {
 
   return (
     <div>
-      <p>Email</p>
+      <p><b>Email</b></p>
       <input onChange={(e) => setEmail(e.target.value)} value={email} />
-      <p>Senha</p>
+      <p><b>Senha</b></p>
       <input
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         type="password"
       />
-      <p>Token da binary</p>
+      <p><b>Token da binary</b></p>
       <input onChange={(e) => setToken(e.target.value)} />
       <button onClick={handleLogin}>Entrar</button>
     </div>
