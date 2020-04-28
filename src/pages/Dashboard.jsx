@@ -150,7 +150,7 @@ export const Dashboard = (props) => {
             onChange={setAmountMultiplier}
             value={amountMultiplier}
           />
-          <p>Valor atual =</p>
+          <p><b>Valor atual</b> =:</p>
           <p>{tradeAmount}</p>
         </div>
         <button onClick={props.showIndexScreen}>Trocar Indice</button>
@@ -164,7 +164,7 @@ export const Dashboard = (props) => {
       <div className="digit-container">
         {queue.map((point) => (
           <p
-            style={{ fontSize: 45, color: point.color, margin: 20 }}
+            style={{ fontSize: 35, color: point.color, margin: 10 }}
             key={point.id}
           >
             {point.lastDigit}

@@ -1,113 +1,22 @@
 const RULES = [
   
- //RISE                                              //Resultado
-{ rule: ["e8","e7","e0"], colors: "bbr", flag: true }, //ok
-{ rule: ["e8","e9","e2"], colors: "rbr", flag: true }, //ok
-{ rule: ["e5","e0","e2"], colors: "bbb", flag: true }, //ok
-{ rule: ["e7","e8","e5"], colors: "bbb", flag: true }, //ok
-{ rule: ["e3","e4","e0"], colors: "bbr", flag: true }, //ok
-{ rule: ["e6","e5","e7"], colors: "brr", flag: true }, //ok
-{ rule: ["e2","e5","e1"], colors: "bbr", flag: true }, //ok ok
-{ rule: ["e7","e8","e0"], colors: "bbr", flag: true }, //ok
-{ rule: ["e1","e6","e1"], colors: "bbr", flag: true }, //ok ok
-{ rule: ["e9","e0","e8"], colors: "rbr", flag: true }, //ok ok
-{ rule: ["e4","e1","e1"], colors: "rbb", flag: true }, //ok ok
-{ rule: ["e8","e9","e4"], colors: "brb", flag: true }, //ok
-{ rule: ["e5","e6","e2"], colors: "rrb", flag: true }, //ok
-{ rule: ["e9","e8","e7"], colors: "rrr", flag: true }, //ok
-{ rule: ["e4","e3","e2"], colors: "brb", flag: true }, //ok
-{ rule: ["e9","e4","e5"], colors: "brb", flag: true }, //ok
-{ rule: ["e8","e3","e9"], colors: "rbb", flag: true }, //ok	
-{ rule: ["e3","e0","e2"], colors: "bbb", flag: true }, //ok	
-{ rule: ["e3","e4","e0"], colors: "bbb", flag: true }, //ok
-{ rule: ["e8","e7","e4"], colors: "rrb", flag: true }, //ok
-{ rule: ["e1","e0","e8"], colors: "brb", flag: true }, //ok
-{ rule: ["e5","e4","e6"], colors: "rrb", flag: true }, //ok ok ok ok
-{ rule: ["e8","e9","e4"], colors: "brb", flag: true }, //ok ok
-{ rule: ["e5","e6","e2"], colors: "rrb", flag: true }, //ok ok
-{ rule: ["e9","e8","e7"], colors: "rrr", flag: true }, //ok ok
-{ rule: ["e4","e3","e2"], colors: "brb", flag: true }, //ok ok
-{ rule: ["e9","e4","e5"], colors: "brb", flag: true }, //ok ok
-{ rule: ["e8","e3","e9"], colors: "rbb", flag: true }, //ok	ok
-{ rule: ["e3","e0","e2"], colors: "bbb", flag: true }, //ok	ok 
-{ rule: ["e3","e4","e0"], colors: "bbb", flag: true }, //ok ok
-{ rule: ["e8","e7","e4"], colors: "rrb", flag: true }, //ok ok
-{ rule: ["e1","e0","e8"], colors: "brb", flag: true }, //ok ok
-{ rule: ["e7","e4","e0"], colors: "brr", flag: true }, // alterada ok
-{ rule: ["e8","e3","e7"], colors: "bbb", flag: true }, //ok
-{ rule: ["e6","e1","e0"], colors: "brb", flag: true }, //ok
-{ rule: ["e5","e2","e4"], colors: "brr", flag: true }, //ok
-{ rule: ["e0","e9","e1"], colors: "rrr", flag: true }, //ok ok ok
-{ rule: ["e4","e1","e7"], colors: "bbr", flag: true }, //ok ok
-{ rule: ["e9","e6","e4"], colors: "rbb", flag: true }, // alterada ok
-{ rule: ["e0","e7","e9"], colors: "bbb", flag: true }, //ok ok
-{ rule: ["e8","e5","e4"], colors: "rrr", flag: true }, //ok ok
+ //3 Digitos RISE
+{rule: ["i", "pM1", "iM2"], colors: "rrb",flag:true },//R1
+{rule: ["i", "pM1", "im2"], colors: "rbr",flag:true },//R2
+{rule: ["i", "pM1", "iM2"], colors: "bbb",flag:true },//R3
+{rule: ["p", "iM1", "pM2"], colors: "rrb",flag:true },//R4
+{rule: ["p", "iM1", "pm1"], colors: "rbr",flag:true },//R5
+{rule: ["p", "iM1", "pM2"], colors: "bbb",flag:true },//R6
 
-//FALL                                                //Resultado
-{ rule: ["e3","e6","e2"], colors: "rrb", flag: false }, //ok ok
-{ rule: ["e1","e8","e5"], colors: "rbr", flag: false }, //ok ok
-{ rule: ["e4","e9","e7"], colors: "brb", flag: false }, //ok ok
-{ rule: ["e4","e7","e1"], colors: "rrr", flag: false }, //ok ok
-{ rule: ["e7","e4","e2"], colors: "brb", flag: false }, //ok ok
-{ rule: ["e3","e0","e8"], colors: "brr", flag: false }, //ok ok
-{ rule: ["e6","e5","e9"], colors: "rrr", flag: false }, //ok ok
-{ rule: ["e7","e4","e4"], colors: "bbb", flag: false }, //ok ok
-{ rule: ["e9","e4","e4"], colors: "rbb", flag: false }, //ok ok
-{ rule: ["e7","e6","e1"], colors: "brr", flag: false }, //ok ok
-{ rule: ["e5","e0","e4"], colors: "brr", flag: false }, //ok ok
-{ rule: ["e7","e0","e9"], colors: "rrb", flag: false }, //ok ok
-{ rule: ["e4","e3","e8"], colors: "rbb", flag: false }, //ok ok
-{ rule: ["e1","e4","e5"], colors: "bbr", flag: false }, //ok ok
-{ rule: ["e5","e8","e2"], colors: "bbr", flag: false }, //ok ok
-{ rule: ["e5","e6","e7"], colors: "rrb", flag: false }, //ok ok 
-{ rule: ["e1","e4","e0"], colors: "bbb", flag: false }, //ok ok
-{ rule: ["e5","e4","e8"], colors: "brb", flag: false }, //ok ok
-{ rule: ["e8","e7","e5"], colors: "bbb", flag: false }, //ok ok
-{ rule: ["e8","e5","e0"], colors: "rbb", flag: false }, //ok ok
-{ rule: ["e3","e8","e5"], colors: "rrr", flag: false }, //ok ok
-{ rule: ["e2","e5","e1"], colors: "rbr", flag: false }, //ok ok
-{ rule: ["e3","e4","e6"], colors: "brb", flag: false }, //ok ok
-{ rule: ["e0","e3","e4"], colors: "rrb", flag: false }, //ok ok
-{ rule: ["e1","e0","e7"], colors: "bbb", flag: false }, //ok ok
-{ rule: ["e4","e1","e8"], colors: "rrb", flag: false }, //ok ok
-{ rule: ["e6","e1","e4"], colors: "rrr", flag: false }, //ok ok
-{ rule: ["e9","e4","e3"], colors: "brb", flag: false }, //ok ok
-{ rule: ["e9","e2","e6"], colors: "brr", flag: false }, // ok ok
-{ rule: ["e9","e6","e1"], colors: "rbb", flag: false }, //ok ok
-{ rule: ["e3","e0","e8"], colors: "rbr", flag: false }, // alterada ok 
-{ rule: ["e0","e7","e8"], colors: "bbb", flag: false }, // alterada ok
-{ rule: ["e5","e8","e1"], colors: "brb", flag: false }, // ok ok
-{ rule: ["e6","e5","e2"], colors: "rrb", flag: false }, // ok ok
-{ rule: ["e2","e9","e1"], colors: "brr", flag: false }, // alterada ok
-{ rule: ["e9","e6","e1"], colors: "bbr", flag: false }, // alterada ok 
-{ rule: ["e5","e4","e3"], colors: "brr", flag: false }, // ok ok
-{ rule: ["e3","e2","e1"], colors: "rrb", flag: false }, // ok ok
-{ rule: ["e3","e2","e7"], colors: "brb", flag: false }, // alterada ok na linha    
-{ rule: ["e8","e5","e3"], colors: "rrr", flag: false }, // ok ok
-{ rule: ["e3","e2","e6"], colors: "rbb", flag: false }, // alterada ok 
 
-//Regras mistas
-{rule: ["i", "pM1", "iM2", "pM3"], colors: "bbbb",flag:true },//R1
-{rule: ["i", "iM1", "p", "pM3"], colors: "bbbb",flag:true },//R2
-{rule: ["i", "im1", "p", "pM3"], colors: "bbrr",flag:false },//R3
-{rule: ["i", "iM1", "pM2d2(1)"], colors: "rrr",flag:true },//R4
-{rule: ["i", "iM1", "pm2d2(-1)"], colors: "rrr",flag:false },//R5
-{rule: ["i", "im1", "im3", "pM1d1(1)"], colors: "rrbrr",flag:false },//R6
-{rule: ["p", "pM1", "im2", "iM1d1(1)"], colors: "rrrrr",flag:false },//R7
-{rule: ["p", "pM1", "im2", "im1d1(-1)"], colors: "rrrrr",flag:true },//R8
-{rule: ["i", "im1", "pm2", "pM3"], colors: "bbrr",flag:false },//R9
-{rule: ["i", "iM1", "pn2", "pM3"], colors: "bbrb",flag:true },//R10
-{rule: ["i", "iM1", "pM2", "pm3"], colors: "bbrb",flag:false },//R11
-{rule: ["p", "im1", "pM1", "im2"], colors: "rbrb",flag:false },//R12
-{rule: ["p", "im1", "pM1", "im2"], colors: "rbbr",flag:true },//R13
-{rule: ["p", "im1", "iM1", "pm3"], colors: "brbr",flag:true },//R14
-{rule: ["i", "im1", "pm2", "pM1","pm4"], colors: "rrrbr",flag:true },//R15
-{rule: ["i", "im1", "pm2", "pM1","iM4"], colors: "rrrbr",flag:false },//R16
-{rule: ["p", "pm1", "im1", "iM1","im3"], colors: "rrrbr",flag:false },//R17
-{rule: ["p", "iM1", "iN2", "pn1","pn4"], colors: "rbbbr",flag:true },//R18
-{rule: ["e0", "e5", "e9", "e0","e0"], colors: "bbrbb",flag:true },//R19
-{rule: ["p", "pM1", "i", "iM3"], colors: "bbbb",flag:true },//R20
-{rule: ["i", "im1", "p", "pm3"], colors: "bbbb",flag:false },//R21
+
+//3 Digitos FALL
+{rule: ["i", "pM1", "iM2"], colors: "bbr",flag:false },//R1
+{rule: ["i", "pM1", "im2"], colors: "brb",flag:false },//R2
+{rule: ["i", "pM1", "iM2"], colors: "rrr",flag:false },//R3
+{rule: ["p", "iM1", "pM2"], colors: "bbr",flag:false },//R4
+{rule: ["p", "iM1", "pm1"], colors: "brb",flag:false },//R5
+{rule: ["p", "iM1", "pM2"], colors: "rrr",flag:false },//R6
 
   //   { rule: ["", "", ""], colors: "bbb", flag: true }, //regra teste
 ];
